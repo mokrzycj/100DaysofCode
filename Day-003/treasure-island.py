@@ -25,7 +25,7 @@ print('''Welcome to Treasure Island.
 Your mission is to find the treasure.''')
 decision = input("Are you going to left or right?\n")
 if decision == "left":
-    decision = input("Are you waiting for a boat or you choose to swim on your own?\n")
+    decision = input("Are you waiting for a boat or you choose to swim on your own? 'wait' or 'swim'\n")
     if decision == "wait":
         decision = input("Are you choosing Red, Yellow or Blue doors?\n")
         if decision == "yellow":
