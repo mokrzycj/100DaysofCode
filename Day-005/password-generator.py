@@ -33,7 +33,7 @@ randomized_password_table = []
 
 for i in range(0, nr_letters):
     randomized_password_table += letters[random.randint(0, len(letters)-1)]
-    print(randomized_password_table)
+    # print(randomized_password_table)
 for i in range(0, nr_symbols):
     randomized_password_table.insert(random.randint(0, len(
         randomized_password_table)-1), symbols[random.randint(0, len(symbols)-1)])
