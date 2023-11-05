@@ -6,12 +6,10 @@ def encrypt(word, shift):
         position=alphabet.index(letter)
 
         # new_position=position+shift
-
         # while new_position>len(alphabet):
         #     new_position=new_position-len(alphabet)
-        
-        new_position=(position+shift)%len(alphabet)  # more elegant way to restrict position to the length of the alphabet
 
+        new_position=(position+shift)%len(alphabet)  # more elegant way to restrict position to the length of the alphabet
         encrypted+=alphabet[new_position]
     return encrypted
 

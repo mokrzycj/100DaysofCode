@@ -12,17 +12,23 @@ def highest_bid(bidders):
             highest_bidder_name=bidder
     return f"The winner is {highest_bidder_name}, with the bid of {highest}"
 
+def clear_screen():
+    print(os.name)
+    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("clear")
+    pass
+
 while is_everyone_done:
     print(art.logo)
     print("Welcome to the secret auction program.")
     name=input("What's your name?\n")
     bid=int(input("What's your bid?\n"))
     bidders[name]=bid
-    os.system("clear")
+    # os.system("clear")
+    clear_screen()
     print(art.logo)
     all_bidders=input("Are there any other bidders? Type 'yes' or 'no'.\n")
-    if all_bidders=="no":
+    if all_bidders == "no":
         is_everyone_done=False
 
 print(highest_bid(bidders))
-# print(bidders)

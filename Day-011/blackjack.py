@@ -1,57 +1,105 @@
-import art, random
+import art, random, os
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+playerWins=0
+computerWins=0
 
-def random_card():
-    tableLen=len(cards)-1
-    randomNumber=random.randint(0, tableLen)
-    return cards[randomNumber]
+def choose_random_card():
+    return cards[random.randint(0, len(cards)-1)]
 
 def score(cards):
     return sum(cards)
 
-def who_wins(playerCards, computerCards):
-    playerScore=score(playerCards)
-    computerScore=score(computerCards)
-    if computerScore==21 and (computerScore and playerScore)==21:
-        print("Dealer has a blackjack, you loose!")
-    elif playerScore==21:
-        return print("You win!!!")
-    elif playerScore>21:
-        if 11 in playerCards:
-            playerCards[playerCards.index[11]]=1
-        else:
-            print("You loose!") 
+def cards_and_scores(userCards, computerCards, userScore, computerScore, winner):
+    os.system("clear")
+    print(art.logo)
+    print(f"Your cards are {userCards} and your score is {userScore}")
+    print(f"Computer cards are {computerCards} and it's score is {computerScore}.")
+
+    if winner=="player":
+        print("You win!!!")
+        global playerWins, computerWins
+        playerWins+=1
+        print(f"Players total score: {playerWins}")
+        print(f"Computer total score: {computerWins}")
+    elif winner=="computer":
+        print("You loose!")
+        computerWins+=1
+        print(f"Players total score: {playerWins}")
+        print(f"Computer total score: {computerWins}")
+    elif winner=="draw":
+        print("it's a draw.")
+    
 
 def blackjack():
+    wantToPlay=input("Do you want to play blackjack? Press 'y' or 'n': ")
+    os.system("clear")
+    if wantToPlay == 'n':
+        return
     print(art.logo)
-    # playerCards=[11, 10]
-    # playerCards=[random_card(), random_card()]
-    # computerCards=[random_card(), random_card()]
 
-    playerCards=[2, 2]
-    computerCards=[3, 4]
-    playerScore=score(playerCards)
-    # computerScore=score(computerCards)
+    userCards = [choose_random_card(), choose_random_card()]
+    computerCards = [choose_random_card(), choose_random_card()]
+    # userCards = [11,11]
+    userScore=score(userCards)
+    computerScore=score(computerCards)
 
-    print(f"Your's cards: {playerCards}, current score: {playerScore}")
-    print(f"Computer's first card: {computerCards[0]}")
+    if userScore>21 and 11 in userCards:
+        userCards[userCards.index(11)]=1
+        userScore=score(userCards)
 
-    who_wins(playerCards, computerCards)
+    print(f"Your cards are {userCards}, and your current score is {userScore}")
+    print(f"Computer first card is [{computerCards[0]}]")
 
-    ifContinue = input("Type 'y' to get another card, type 'n' to pass: ")
+    if computerScore==21 or (userScore and computerScore)==21:
+        cards_and_scores(userCards, computerCards, userScore, computerScore, "computer")
+        return blackjack()
+    elif userScore==21:
+        cards_and_scores(userCards, computerCards, userScore, computerScore, "player")
+        return blackjack()
+    elif userScore>21:
+        userCards[0]=1
+        userScore=score(userCards)
 
-    while ifContinue=="y":
-        playerCards.append(random_card())
-        playerScore=sum(playerCards)
-        print(f"Your's cards: {playerCards}, current score: {playerScore}")
-        who_wins(playerCards, computerCards)
-        ifContinue = input("Type 'y' to get another card, type 'n' to pass: ")
+    anotherCard=input("Do you want next card? 'y' or 'n': ")
+    while anotherCard == 'y' and userScore<21:
+        userCards.append(choose_random_card())
+        userScore=score(userCards)
+        if userScore>21 and 11 in userCards:
+            userCards[userCards.index(11)]=1
+            userScore=score(userCards)
+        print(f"Your cards are {userCards}, and your current score is {userScore}")
+        if userScore>21 and 11 in userCards:
+            userCards[userCards.index(11)]=1
+            userScore=score(userCards)
+
+        if userScore==21:
+            cards_and_scores(userCards, computerCards, userScore, computerScore, "player")
+            return blackjack()
+        elif userScore>21:
+            cards_and_scores(userCards, computerCards, userScore, computerScore, "computer")
+            return blackjack()
+
+        anotherCard=input("Do you want next card? 'y' or 'n': ")
+    
+    while computerScore<=17:
+        computerCards.append(choose_random_card())
+        computerScore=score(computerCards)
+        print(f"Computer cards are {computerCards}")
+    
+    if computerScore == userScore:
+        cards_and_scores(userCards, computerCards, userScore, computerScore, "draw")
+        return blackjack()
+    elif computerScore>userScore and computerScore<=21:
+        cards_and_scores(userCards, computerCards, userScore, computerScore, "computer")
+        return blackjack()
+    elif computerScore<userScore or computerScore>21:
+        cards_and_scores(userCards, computerCards, userScore, computerScore, "player")
+        return blackjack()
+
     
 
 
-if input("Do you want to play Blackjack? Type 'y or 'n': ") == 'y':
-    blackjack()
-
+blackjack()
 
 
 

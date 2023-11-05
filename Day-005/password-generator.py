@@ -1,5 +1,6 @@
 # Password Generator Project
 import random
+
 letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
            'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -28,8 +29,9 @@ print(f"Password with letters, symbols and numbers in order: {password}")
 
 # Hard Level - Order of characters randomised:
 # e.g. 4 letter, 2 symbol, 2 number = g^2jk8&P
-randomized_password = ""
 randomized_password_table = []
+
+# Three for loops below are assigning letters, symbols and numbers to randomized_password_table
 
 for i in range(0, nr_letters):
     randomized_password_table += letters[random.randint(0, len(letters)-1)]
@@ -41,11 +43,8 @@ for i in range(0, nr_numbers):
     randomized_password_table.insert(random.randint(0, len(
         randomized_password_table)-1), numbers[random.randint(0, len(numbers)-1)])
 
-# for letter in randomized_password_table:
-#     randomized_password+=letter
-
+# Converting randomized_password_table to string that can be returned to user
 randomized_password = ''.join(randomized_password_table)
 
 
-print(
-    f"Password with symbols and numbers on random positions: {str(randomized_password)}")
+print(f"Password with symbols and numbers on random positions: {str(randomized_password)}")

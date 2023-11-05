@@ -1,3 +1,5 @@
+"""Program created to train with if/elif/else."""
+
 chest = '''
 *******************************************************************************
           |                   |                  |                     |
@@ -20,10 +22,13 @@ ____/______/______/______/______/_____"=.o|o_.--""___/______/______/______/____
 /______/______/______/______/______/______/______/______/______/______/_____ /
 *******************************************************************************
 '''
+
 print(chest)
 print('''Welcome to Treasure Island. 
 Your mission is to find the treasure.''')
+
 decision = input("Are you going to left or right?\n")
+
 if decision == "left":
     decision = input("Are you waiting for a boat or you choose to swim on your own? 'wait' or 'swim'\n")
     if decision == "wait":
